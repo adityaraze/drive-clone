@@ -12,15 +12,15 @@ dotenv.config();
 const app = express();
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
 app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://drive-clone-hka8.vercel.app",
+      "https://drive-clone-hka8.vercel.app"
     ],
-    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 
@@ -40,4 +40,4 @@ mongoose
       console.log("Server running")
     );
   })
-  .catch((err) => console.error("Mongo error:", err));
+  .catch((err) => console.error(err));
