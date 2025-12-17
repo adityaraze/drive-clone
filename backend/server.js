@@ -12,6 +12,7 @@ dotenv.config();
 const app = express();
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.use(
   cors({
@@ -23,7 +24,6 @@ app.use(
   })
 );
 
-/* ROUTES */
 app.use("/api/auth", authRoutes);
 app.use("/api/files", fileRoutes);
 app.use("/api/share", shareRoutes);
@@ -40,4 +40,4 @@ mongoose
       console.log("Server running")
     );
   })
-  .catch((err) => console.error(err));
+  .catch((err) => console.error("Mongo error:", err));
