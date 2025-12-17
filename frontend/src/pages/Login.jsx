@@ -10,18 +10,27 @@ export default function Login() {
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const res = await axios.post(
-        "http://localhost:5000/api/auth/login",
-        { email, password }
-      );
-      login(res.data.token);
+  e.preventDefault();
+
+  try {
+    const res = await axios.post(
+      `${import.meta.env.VITE_API_BASE_URL}/api/auth/login`,
+      { email, password }
+    );
+
+    // save token
+    login(res.data.token);
+
+    // small delay to ensure auth state update
+    setTimeout(() => {
       navigate("/");
-    } catch (err) {
-      alert("Invalid credentials");
-    }
-  };
+    }, 0);
+
+  } catch (err) {
+    alert(err.response?.data?.message || "Invalid credentials");
+  }
+};
+
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
